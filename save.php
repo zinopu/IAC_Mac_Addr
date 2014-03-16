@@ -41,9 +41,7 @@ and open the template in the editor.
                 return 'VAR12' . $this->cl_Name . 'VAR12';
             }
         }
-        
-        
-        
+             
         
         $newdata = new input_PC;    
          
@@ -61,6 +59,7 @@ and open the template in the editor.
          
         
         echo 'VAR5' . $newdata->mac_addr(). 'VAR5' . "<br />";
+        echo 'VAR13' . $newdata->Name() . 'VAR13' . "<br />";
  
         
         
