@@ -37,7 +37,8 @@ and open the template in the editor.
             }
             
             public function Name(){
-                $this->cl_Name = $this->cl_Vorname . $this->cl_Nachname;                
+                $this->cl_Name = $this->cl_Vorname . $this->cl_Nachname;   
+                return 'VAR12' . $this->cl_Name . 'VAR12';
             }
         }
         
