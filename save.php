@@ -60,7 +60,9 @@ and open the template in the editor.
         
         echo 'VAR5' . $newdata->mac_addr(). 'VAR5' . "<br />";
         echo 'VAR13' . $newdata->Name() . 'VAR13' . "<br />";
-        
+        echo 'VAR5' . $newdata->mac_addr(). 'VAR5' . "<br />";
+        echo 'VAR13' . $newdata->Name() . 'VAR13' . "<br />";echo 'VAR5' . $newdata->mac_addr(). 'VAR5' . "<br />";
+        echo 'VAR13' . $newdata->Name() . 'VAR13' . "<br />";
  
         
         
