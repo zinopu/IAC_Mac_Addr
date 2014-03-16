@@ -58,6 +58,10 @@ and open the template in the editor.
         ////echo 'VAR3' . $newdata->cl_Nachname . 'VAR3' . "<br />";
         ////echo 'VAR2' . $newdata->cl_Vorname . 'VAR2' . "<br />";
         //test_uotput
+           //echo 'VAR4' . $newdata->cl_mac_1 . 'VAR4' . "<br />";
+        ////echo 'VAR3' . $newdata->cl_Nachname . 'VAR3' . "<br />";
+        ////echo 'VAR2' . $newdata->cl_Vorname . 'VAR2' . "<br />";
+        //test_uotput
         
         echo 'Output: ' . $newdata->Name(). ':' . $newdata->mac_addr() . ':0:1:0:0:0<br />';
         
