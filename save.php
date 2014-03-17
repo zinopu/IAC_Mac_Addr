@@ -50,21 +50,21 @@ and open the template in the editor.
                 {
                     //echo fgets($this->cl_handle_o). "//////2///////";
                     //$comp = substr_count(fgets($this->cl_handle_o), $newdata->mac_addr());
-                    $strspn = strspn($this->mac_addr() , fread($this->cl_handle_o));
+                    $strspn = strspn($this->mac_addr() , fgets($this->cl_handle_o));
                     echo $strspn;
                     
                     if($strspn === 17)
                     {
                         echo 'korrekt' . "<br />";
-                        break;
+                        //break;
                     }
                     else
                     {
                         echo 'falsch' . "<br />";
-                        break;
+                        //break;
                     }
                 }
-                fclose("list.txt");
+                fclose($this->cl_handle_o);
                                 
             }
             
@@ -73,7 +73,7 @@ and open the template in the editor.
                 $this->cl_handle_w = fopen ( "list.txt", "a" );
                 fwrite ( $this->cl_handle_w, $this->cl_erg );
                 fwrite ( $this->cl_handle_w, "\n");
-                fclose ( "list.txt" );                       
+                fclose ( $this->cl_handle_w);                       
             }
                                                
         }
