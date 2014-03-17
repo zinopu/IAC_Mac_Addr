@@ -46,6 +46,9 @@ and open the template in the editor.
             public function func_check_mac_addr(){
                 $this->cl_handle_o = fopen ("list.txt", "r");
                 $a = 0;
+                //$b = 1;
+                $laenge = strlen($this->mac_addr());
+                
                 while(!feof($this->cl_handle_o))
                 {
                     //echo fgets($this->cl_handle_o). "//////2///////";
@@ -67,8 +70,16 @@ and open the template in the editor.
                 }
                 fclose($this->cl_handle_o);
                 
+                //if($laenge != 17){
+                //    $b = 0;
+                //    echo 'ungültige MAC-Adresse';
+                //}    
+                
                 if($a === 0){
-                    $this->func_add_mac_addr();
+                    if($laenge === 17){
+                        $this->func_add_mac_addr();
+                    }
+                    
                 }
                 
             }
@@ -82,7 +93,7 @@ and open the template in the editor.
             }
                                                
         }
-        ////////// START PROG ///////////////
+        ////////// START PROG ////////////
         $newdata = new input_PC;    
          
         $newdata -> cl_Vorname = $_POST["ein_vorname"];
