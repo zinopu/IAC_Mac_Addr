@@ -58,7 +58,7 @@ and open the template in the editor.
                         echo 'korrekt' . "<br />";
                         $a = $a + 1;
                     }
-                    else
+                    else ///// DEBUG_INFO
                     {
                         echo 'falsch' . "<br />";
                         //break;
