@@ -45,7 +45,7 @@ and open the template in the editor.
             
             public function func_check_mac_addr(){
                 $this->cl_handle_o = fopen ("list.txt", "r");
-                
+                $a = 0;
                 while(!feof($this->cl_handle_o))
                 {
                     //echo fgets($this->cl_handle_o). "//////2///////";
@@ -56,16 +56,21 @@ and open the template in the editor.
                     if($strspn === 17)
                     {
                         echo 'korrekt' . "<br />";
-                        //break;
+                        $a = $a + 1;
                     }
                     else
                     {
                         echo 'falsch' . "<br />";
                         //break;
                     }
+                    
                 }
                 fclose($this->cl_handle_o);
-                                
+                
+                if($a === 0){
+                    $this->func_add_mac_addr();
+                }
+                
             }
             
             public function func_add_mac_addr(){
@@ -89,7 +94,7 @@ and open the template in the editor.
         $newdata -> cl_mac_5 = $_POST["ein_mac_5"];
         $newdata -> cl_mac_6 = $_POST["ein_mac_6"];
         $newdata -> func_check_mac_addr();
-        $newdata -> func_add_mac_addr();
+        //$newdata -> func_add_mac_addr();
         
         //test_output
         //echo 'VAR4' . $newdata->cl_mac_1 . 'VAR4' . "<br />";
