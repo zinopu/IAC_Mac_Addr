@@ -29,20 +29,55 @@ and open the template in the editor.
             public $cl_mac_5;
             public $cl_mac_6;
             private $cl_mac_ins = 1;
+            private $cl_erg;
+            private $cl_handle_w;
+            private $cl_handle_o;
             
-            
-            public function mac_addr(){
-                $this->cl_mac_ins = $this->cl_mac_1 . ':' . $this->cl_mac_2 . ':' . $this->cl_mac_3 . ":" . $this->cl_mac_4 . ":" . $this->cl_mac_5 . ":" . $this->cl_mac_6;
+            private function mac_addr(){
+                $this->cl_mac_ins = strtolower($this->cl_mac_1 . ':' . $this->cl_mac_2 . ':' . $this->cl_mac_3 . ":" . $this->cl_mac_4 . ":" . $this->cl_mac_5 . ":" . $this->cl_mac_6);
                 return $this->cl_mac_ins;
             }
             
-            public function Name(){
+            private function Name(){
                 $this->cl_Name = $this->cl_Vorname . ' ' .$this->cl_Nachname;     // Mit oder ohne Leerzeichen
                 return $this->cl_Name;
             }
+            
+            public function func_check_mac_addr(){
+                $this->cl_handle_o = fopen ("list.txt", "r");
+                
+                while(!feof($this->cl_handle_o))
+                {
+                    //echo fgets($this->cl_handle_o). "//////2///////";
+                    //$comp = substr_count(fgets($this->cl_handle_o), $newdata->mac_addr());
+                    $strspn = strspn($this->mac_addr() , fread($this->cl_handle_o));
+                    echo $strspn;
+                    
+                    if($strspn === 17)
+                    {
+                        echo 'korrekt' . "<br />";
+                        break;
+                    }
+                    else
+                    {
+                        echo 'falsch' . "<br />";
+                        break;
+                    }
+                }
+                fclose("list.txt");
+                                
+            }
+            
+            public function func_add_mac_addr(){
+                $this->cl_erg = $this->Name(). ';' . $this->mac_addr() . ';0;1;0;0;0';
+                $this->cl_handle_w = fopen ( "list.txt", "a" );
+                fwrite ( $this->cl_handle_w, $this->cl_erg );
+                fwrite ( $this->cl_handle_w, "\n");
+                fclose ( "list.txt" );                       
+            }
+                                               
         }
-             
-        
+        ////////// START PROG //////////
         $newdata = new input_PC;    
          
         $newdata -> cl_Vorname = $_POST["ein_vorname"];
@@ -53,17 +88,30 @@ and open the template in the editor.
         $newdata -> cl_mac_4 = $_POST["ein_mac_4"];
         $newdata -> cl_mac_5 = $_POST["ein_mac_5"];
         $newdata -> cl_mac_6 = $_POST["ein_mac_6"];
-         
-        //echo 'VAR4' . $newdata->cl_mac_1 . 'VAR4' . "<br />";
-        ////echo 'VAR3' . $newdata->cl_Nachname . 'VAR3' . "<br />";
-        ////echo 'VAR2' . $newdata->cl_Vorname . 'VAR2' . "<br />";
+        $newdata -> func_check_mac_addr();
+        $newdata -> func_add_mac_addr();
+        
         //test_output
-     
+        //echo 'VAR4' . $newdata->cl_mac_1 . 'VAR4' . "<br />";
+        //echo 'VAR3' . $newdata->cl_Nachname . 'VAR3' . "<br />";
+        //echo 'VAR2' . $newdata->cl_Vorname . 'VAR2' . "<br />";
+        //test_output//echo 'VAR4' . $newdata->cl_mac_1 . 'VAR4' . "<br />";
+        //echo 'VAR3' . $newdata->cl_Nachname . 'VAR3' . "<br />";
+        //echo 'VAR2' . $newdata->cl_Vsssorname . 'VAR2' . "<br />";
         
-        echo 'Output: ' . $newdata->Name(). ':' . $newdata->mac_addr() . ':0:1:0:0:0<br />';
+        //$handle_o = fopen("list.txt", "r");
+        //echo $handle_o;
+        //
+        //$theData = fread($handle_o, filesize("list.txt"));
+        //$theData = fgets($handle_o, filesize("list.txt"));
+        //$a = fgets($handle_o);
+        //echo $newdata->mac_addr() . '    $newdata<br />';
+        //echo $a .         '$a<br />';
         
-     
+        //echo substr_count($a, $newdata->mac_addr());
+                
         
+        //echo $theData;
         ?>
         
         
