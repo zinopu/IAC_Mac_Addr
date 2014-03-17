@@ -54,7 +54,9 @@ and open the template in the editor.
                     //echo fgets($this->cl_handle_o). "//////2///////";
                     //$comp = substr_count(fgets($this->cl_handle_o), $newdata->mac_addr());
                     $strspn = strspn($this->mac_addr() , fgets($this->cl_handle_o));
-                    echo $strspn;
+                    $ereg = ereg($this->mac_addr(), fgets($this->cl_handle_o));
+                    //echo $strspn;
+                    echo $ereg;
                     
                     if($strspn === $this->mac_addr())
                     {
