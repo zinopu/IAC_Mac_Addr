@@ -82,7 +82,7 @@ and open the template in the editor.
             }
                                                
         }
-        ////////// START PROG //////////
+        ////////// START PROG ///////////////
         $newdata = new input_PC;    
          
         $newdata -> cl_Vorname = $_POST["ein_vorname"];
