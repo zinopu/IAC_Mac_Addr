@@ -56,7 +56,7 @@ and open the template in the editor.
                     $strspn = strspn($this->mac_addr() , fgets($this->cl_handle_o));
                     echo $strspn;
                     
-                    if($strspn === 17)
+                    if($strspn === $this->mac_addr())
                     {
                         echo 'korrekt' . "<br />";
                         $a = $a + 1;
