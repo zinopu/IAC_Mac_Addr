@@ -76,7 +76,7 @@ class ldap_login{
 
 
 $anmeldung = new ldap_login;
-
+$anmeldung -> cl_Zugang = 0 ;
 $anmeldung -> cl_id = $_POST["ein_y-id"];
 $anmeldung -> cl_password = $_POST["ein_passwort"];
 
