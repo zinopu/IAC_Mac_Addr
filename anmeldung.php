@@ -10,7 +10,7 @@ and open the template in the editor.
 
 class ldap_login{
     public $cl_Zugang = 0;
-    private $cl_ldaphost = "ldap.yourdomain.com";
+    private $cl_ldaphost = "localhost";
     private $cl_ldapport = 389;
     public $cl_id;
     public $cl_password;
@@ -37,6 +37,7 @@ class ldap_login{
                     $this->cl_Zugang = 0;
                     return $this->cl_Zugang;
                 }
+            ldap_close($this->cl_ds);
         }
         
     }
@@ -45,10 +46,11 @@ class ldap_login{
     {
         $ldap = ldap_connect($this->cl_ldaphost);
         if ($bind = ldap_bind($ldap, $this->cl_id, $this->cl_password)) {
-        // log them in!
+        echo 'hi';
         } else {
-        // error message
+        echo 'error message';
         }
+        ldap_close($ldap);
     }         
 }
 
