@@ -10,30 +10,56 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <!-- //START HTML -->
         
-<div align ="center">
-    <br /><br /><br />Registrierung: MAC-Adresse<br /><br />
-    <form action = "save.php" method = "post">
-        Vorname:  <input name = "ein_vorname" type="text"><br /><br />
-        Nachname: <input name = "ein_nachname" type="text"><br /><br />
-        MAC-Adresse: <input name = "ein_mac_1" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
-                     <input name = "ein_mac_2" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
-                     <input name = "ein_mac_3" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
-                     <input name = "ein_mac_4" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
-                     <input name = "ein_mac_5" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
-                     <input name = "ein_mac_6" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">
-                     <br /><br />
-    <input type = "submit">
-    <input type = "reset">   
-    </form>     
-</div>        
+    <div align ="center">
+        <br /><br /><br />
+        Hotspot MAC-Adresse<br /><br />
+        Bitte melden Sie sich an um Zugang zur Registrierung ihrer Geräte zu erhalten<br /><br />
+    
+        <form action = "anmeldung.php" method = "post">
+            Y-ID: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input name = "ein_y-id" type="text" maxlength="5"><br /><br />
+            Passwort: &nbsp; <input name = "ein_passwort" type="password"><br /><br />
+            <input type = "submit" value="Anmelden">
+            <input type = "reset">   
+        </form>     
+    </div>  
         
         
-        
-        
-        
-        
-        
+        <?php
+        // put your code here
+        ?>
     </body>
 </html>
+
+
+
+<?php
+//
+//$ldaphost = "ldap.yourdomain.com";
+//
+///*for a SSL secured ldap_connect()
+//
+//$ldaphost = "ldap.yourdomain.com"; */
+//
+//$ldapport = 389;
+//
+//$ds = ldap_connect($ldaphost, $ldapport)
+//or die("Could not connect to $ldaphost");
+//
+//if ($ds) {
+//
+//$username = "some_user";
+//$upasswd = "secret";
+//$binddn = "uid=$username,ou=people,dc=yourdomain,dc=com";
+//
+//$ldapbind = ldap_bind($ds, $binddn, $upasswd);
+//                           
+//if ($ldapbind) {
+//
+//print "Congratulations! $some_user is authenticated.";}
+//
+//else {
+//
+//print "Nice try, kid. Better luck next time!";}}
+//
+?>
