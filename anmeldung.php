@@ -7,6 +7,8 @@ and open the template in the editor.
 
 
 <?php
+session_start();
+require_once '/var/www/ftp/IACBox_MAC_Addr/libraries/adLDAP.php';
 
 class ldap_login{
     public $cl_Zugang = 0;
@@ -73,41 +75,70 @@ class ldap_login{
 //    }
 //    
 //}
+//
+
+$_SESSION["y_id"] = $_POST["ein_y-id"];
+
+//LDAP LIBRARIE TRY SERVER NOCH ANGEBEN 
+// a2enmod ldap NICHT VERGESSEN
+//$adLDAP = new LDAP\adLDAP\adLDAP;
+//$adLDAP ->set_ad_username($_POST["ein_y-id"]);
+//$adLDAP ->set_ad_password($_POST["ein_passwort"]);
+//$adLDAP ->authenticate($_POST["ein_y-id"], $_POST["ein_passwort"])
+//echo 'VAR6' . $adLDAP->set_ad_username($_POST["ein_y-id"]) . 'VAR6' . "<br>";
+//echo 'VAR7' . $adLDAP->set_ad_password($_POST["ein_passwort"]) . 'VAR7' . "<br>";
 
 
 $anmeldung = new ldap_login;
 $anmeldung -> cl_Zugang = 0 ;
-$anmeldung -> cl_id = $_POST["ein_y-id"];
+$anmeldung -> cl_id = $_SESSION["y_id"];
 $anmeldung -> cl_password = $_POST["ein_passwort"];
 
-echo 'VAR4' . $anmeldung->cl_id . 'VAR4' . "<br />";
-echo 'VAR5' . $anmeldung->cl_password . 'VAR5' . "<br />";
+echo 'VAR4' . $anmeldung->cl_id . 'VAR4' . "<br>";
+echo 'VAR5' . $anmeldung->cl_password . 'VAR5' . "<br>";
 
 
-if ($anmeldung -> ldap_connect_bind() === 0)
+
+//if ($anmeldung -> ldap_connect_bind() === TRUE)
+if (1 == 1)
 {
-    echo '<div align ="center">
-        <br /><br /><br />
-        Registrierung: MAC-Adresse<br /><br />
+    echo '<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <style type="text/css">     
+            body { background-color:#F2F2F2;}
+            .dunkel {background-color:#DFDFE0; text-align:center; position:absolute; top:75px; left:32%; right:32%; height:350px; border-width:1px; border-style:solid; border-color:#8B8B8C;
+                     border-radius: 6px;border-top-left-radius: 6px;border-top-right-radius: 6px;border-bottom-left-radius: 6px;border-bottom-right-radius: 6px;
+                    }
+        </style>
+    </head>
+    <body>
+        <div class ="dunkel">
+        <br><br><br>
+        Registrierung: MAC-Adresse<br><br>
         <form action = "save.php" method = "post">
-            Vorname:  <input name = "ein_vorname" type="text"><br /><br />
-            Nachname: <input name = "ein_nachname" type="text"><br /><br />
-            E-Mail:   <input name = "ein_email" type="text"><br /><br />
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspVorname:  <input name = "ein_vorname" type="text"><br><br>
+            &nbsp&nbsp&nbsp&nbspNachname: <input name = "ein_nachname" type="text"><br><br>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspE-Mail:   <input name = "ein_email" type="text"><br><br>
             MAC-Adresse:<input name = "ein_mac_1" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
                         <input name = "ein_mac_2" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
                         <input name = "ein_mac_3" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
                         <input name = "ein_mac_4" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
                         <input name = "ein_mac_5" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
                         <input name = "ein_mac_6" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">
-                        <br /><br />
+                        <br><br>
         <input type = "submit">
-        <input type = "reset">   
+        <input type = "reset">
         </form>     
         </div>
-';}
-    else{
+        </body>
+        </html>';
+}
+else
+{
         echo 'Bad Login';
-    }
+}
         
 
 
@@ -123,18 +154,18 @@ if ($anmeldung -> ldap_connect_bind() === 0)
          //START HTML 
         
 <div align ="center">
-    <br /><br /><br />Registrierung: MAC-Adresse<br /><br />
+    <br><br><br>Registrierung: MAC-Adresse<br><br>
     <form action = "save.php" method = "post">
-        Vorname:  <input name = "ein_vorname" type="text"><br /><br />
-        Nachname: <input name = "ein_nachname" type="text"><br /><br />
-        E-Mail:   <input name = "ein_email" type="text"><br /><br />
+        Vorname:  <input name = "ein_vorname" type="text"><br><br>
+        Nachname: <input name = "ein_nachname" type="text"><br><br>
+        E-Mail:   <input name = "ein_email" type="text"><br><br>
         MAC-Adresse: <input name = "ein_mac_1" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
                      <input name = "ein_mac_2" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
                      <input name = "ein_mac_3" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
                      <input name = "ein_mac_4" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
                      <input name = "ein_mac_5" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">:
                      <input name = "ein_mac_6" type="text" size="2" maxlength="2" style="height: 15px; width: 20px;">
-                     <br /><br />
+                     <br><br>
     <input type = "submit">
     <input type = "reset">   
     </form>     
