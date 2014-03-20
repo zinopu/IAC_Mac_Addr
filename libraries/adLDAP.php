@@ -403,7 +403,7 @@ class adLDAP
 
         // Bind as a domain admin if they've set it up
         if ($this->_ad_username != null && $this->_ad_password!= null) {
-            $this->_bind = @ldap_bind($this->_conn, $this->_ad_username.$this->_account_suffix, $this->_ad_password);
+            $this->_bind = ldap_bind($this->_conn, $this->_ad_username.$this->_account_suffix, $this->_ad_password);
             if (!$this->_bind) {
                 if ($this->_use_ssl && !$this->_use_tls) {
                     // If you have problems troubleshooting, remove the @ character from the ldap_bind command above to get the actual error message
