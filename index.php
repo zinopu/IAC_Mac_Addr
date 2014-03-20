@@ -7,33 +7,38 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
-        <style type="text/css">     
-            body { background-color:#F2F2F2;}
-            .dunkel {background-color:#DFDFE0; text-align:center; position:absolute; top:75px; left:32%; right:32%; height:300px; border-width:1px; border-style:solid; border-color:#8B8B8C;
-                     border-radius: 6px;border-top-left-radius: 6px;border-top-right-radius: 6px;border-bottom-left-radius: 6px;border-bottom-right-radius: 6px;
-                    }
-
-        </style>
+        <title>Hotspot MAC-Adresse</title>
+        <link rel="stylesheet" media="screen" href="iac.css"> 
     </head>
     <body>
-        
+
+    <div class="logo"><img src="logo.jpg" width="133px" height="37px" alt="logo"></div>
+
     <div class="dunkel">
-        <br><br><br>
-        Hotspot MAC-Adresse<br><br>
-        Bitte melden Sie sich an um Zugang zur Registrierung ihrer Geräte zu erhalten<br><br>
-    
+        <h1>Hotspot MAC-Adresse</h1>
+
         <form action = "anmeldung.php" method = "post">
-            Y-ID: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input name = "ein_y-id" type="text" maxlength="5"><br><br>
-            Passwort: &nbsp; <input name = "ein_passwort" type="password"><br><br>
-            <input type = "submit" value="Anmelden">
-            <input type = "reset">   
-        </form>     
-    </div>  
-        
-        
-        <?php
-        // put your code here
-        ?>
+
+            <p>Bitte melden Sie sich an um Zugang zur Registrierung ihrer GerÃ¤te zu erhalten<br>
+            <br>
+
+            <div class="boxcenter">
+
+                <div class="links">Y-ID:</div>
+                <div class="rechts"><input name="ein_y-id" type="text" maxlength="5" class="eingaben"></div>
+                <div class="clear"></div>
+
+                <div class="links">Passwort:</div>
+                <div class="rechts"><input name="ein_passwort" type="password" class="eingaben"></div>
+                <div class="clear"></div>
+
+                <div class="links"></div>
+                <div class="rechts"><input type="submit" value="Anmelden" style="width:196px"></div>
+                <div class="clear"></div>
+
+             </div> <!-- /boxcenter -->
+           </p>
+       </form>
+    </div>  <!-- /dunkel -->
     </body>
-</html>
+</html>     
