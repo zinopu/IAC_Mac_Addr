@@ -1,0 +1,74 @@
+body 
+{ 
+    background-color:#fff;
+}
+            
+.dunkel 
+{
+    background-color:#DFDFE0; 
+    text-align:center; 
+    width: 500px;
+    margin: 35px auto;
+    border-width:1px; 
+    border-style:solid; 
+    border-color:#8B8B8C;
+    border-radius: 6px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    padding: 20px;    
+}
+    
+h1
+{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+p
+{
+    font-size: 12px;
+}
+
+.clear
+{
+    clear: both;
+}
+
+.links
+{
+    float: left;
+    width: 120px;
+    text-align: right;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 7px;
+}
+
+.rechts
+{
+    float: left;
+    width: 205px;
+    text-align: left;
+    font-size: 14px;
+    margin: 0 0 0 5px;
+}
+
+.boxcenter
+{
+    width: 370px;
+    margin: 0 auto;
+}
+
+.logo
+{
+    width: 130px;
+    margin: 50px auto 0 auto;
+}
+
+.eingaben
+{
+    width: 191px;
+    margin-bottom: 5px;
+} 
