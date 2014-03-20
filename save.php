@@ -12,7 +12,7 @@ and open the template in the editor.
         <body>
         
             <div align ="center">
-            <br><br><br><h1>Vielen Dank für ihre Registrierung</h1>
+            <br><br><br><h1>Vielen Dank fuer ihre Registrierung</h1>
         
             </div>   
         
@@ -29,10 +29,8 @@ and open the template in the editor.
             public $cl_mac_4;
             public $cl_mac_5;
             public $cl_mac_6;
-            private $cl_erg;
-            private $cl_handle_w;
-            private $cl_handle_o;
             private $cl_fehler;
+            private $cl_anzahl_yid;
             
             private function mac_addr(){
                 $mac_addr = strtolower($this->cl_mac_1 . ':' . $this->cl_mac_2 . ':' . $this->cl_mac_3 . ":" . $this->cl_mac_4 . ":" . $this->cl_mac_5 . ":" . $this->cl_mac_6);
@@ -48,112 +46,136 @@ and open the template in the editor.
                 $fehler = 0;
                 $this->cl_fehler = 0;
                 
-                // ungültige Zeichen && Feld leer    '/^.[a-z]{0,20}$/i'  ohne Leerzeichen und ohne Bindestrich
+                // ungÃ¼ltige Zeichen && Feld leer    '/^.[a-z]{0,20}$/i'  ohne Leerzeichen und ohne Bindestrich
                 if (!preg_match('/.[a-z\s-]{2,30}/i', $this->cl_Vorname)) {
                     $fehler = 1;
                     $this->cl_fehler = 1;
-                    echo 'Fehler: Eingabefeld Vorname, ungültige Eingabe.<br>';
+                    echo 'Fehler: Eingabefeld Vorname, ungueltige Eingabe.<br>';
                 }
                 
-                // ungültige Zeichen && Feld leer
+                // ungÃ¼ltige Zeichen && Feld leer
                 if (!preg_match('/^.[a-z]{2,30}$/i', $this->cl_Nachname)) {
                     $fehler = 1;
                     $this->cl_fehler = 1;
-                    echo 'Fehler: Eingabefeld Nachname, ungültige Eingabe.<br>';
+                    echo 'Fehler: Eingabefeld Nachname, ungueltige Eingabe.<br>';
                 }
                 
-                // ungültige MAC-Adresse
+                // ungÃ¼ltige MAC-Adresse
                 If (!preg_match('/^.[a-f0-9]+:+.[a-f0-9]+:+.[a-f0-9]+:+.[a-f0-9]+:+.[a-f0-9]+:+.[a-f0-9]{1}$/i', $this->mac_addr())) {
                     $fehler = 1;
                     $this->cl_fehler = 1;
-                    echo 'Fehler: Eingabfeld MAC-Adresse, ungültige Eingabe.<br>';
+                    echo 'Fehler: Eingabfeld MAC-Adresse, ungueltige Eingabe.<br>';
                 }
                                 
-                //Länge der MAC-Adresse
+                //LÃ¤nge der MAC-Adresse
                 $laenge = strlen($this->mac_addr());
                 if($laenge != 17){
                     $fehler = 1;
                     $this->cl_fehler = 1;
-                    echo 'Fehler: Eingabfeld MAC-Adresse, ungültige Eingabe(Laenge).<br>';
+                    echo 'Fehler: Eingabfeld MAC-Adresse, ungueltige Eingabe(Laenge).<br>';
                             
                 }
                                 
-                //ungültige Email-Adresse NICHT FERTIG
+                //ungÃ¼ltige Email-Adresse NICHT FERTIG
                 //if(!preg_match("^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[d-e]{2,4}$",  $this->cl_email)){
                 //    $fehler = 1;
                 //    $this->cl_fehler = 1;
-                //    echo 'Fehler: Eingabfeld E-Mail, ungültige E-Mail Adresse.<br>';
+                //    echo 'Fehler: Eingabfeld E-Mail, ungueltige E-Mail Adresse.<br>';
                 //}
+                ///////////////////////////////////////////////
                 
+                //MAXIMAL ANZAHL AN registrierten GERÃ„TEN abfragen
+//                $cl_handle_o_1 = fopen ("list_w_email.txt", "r");
+//                while(!feof($cl_handle_o_1))
+//                {
+//                  echo fgets($cl_handle_o_1) . '<br>';
+//                    if(preg_match($this->mac_addr(), fgets($cl_handle_o_1)))
+//                    {
+//                        $fehler = 1;
+//                        $this->cl_fehler = 1;
+//                        echo 'Mac-Adresse bereits registriert.<br>';
+//                    }
+//                }
+//                fclose($cl_handle_o_1);
                 
-                //MAXIMAL ANZAHL AN registrierten GERÄTEN abfragen
+                ///////////////////////////////////////////////Neuer Ansatz
+                //////////////////PFAD EDIT////////////////////////////////////
+                $list_txt_w_email = file("/var/www/iac_mac/IAC_Mac_Addr-master/list_w_email.txt");
+                ////////////////////////////////////////////////////////////////////////
+                $pattern1 = "'^(" . $this->mac_addr() . ")$'";
+                echo $pattern1 . '<br><br><br>';
+                foreach ($list_txt_w_email as $zeile)
+                    {
+                        echo $zeile.'<br>';
+                        if(preg_match($pattern1, $zeile))
+                        {
+                            $fehler = 1;
+                            $this->cl_fehler = 1;
+                            echo 'Mac-Adresse bereits registriert.<br>';                                    
+                        }
+                    }  
+                
+                ///////////////   ANZAHL DER Y-ID's ///////////////   
+                $this->cl_anzahl_yid = 0;
+                $pattern_yid = "'/\b" . $this->cl_yid . "\b/i'";
+                echo '<br><br><br>' . $pattern_yid;
+                foreach ($list_txt_w_email as $zeile)
+                    {
+                        if(preg_match($pattern_yid, $zeile))
+                        {
+                            $this->cl_anzahl_yid = $this->cl_anzahl_yid + 1;
+                                                                                            
+                        }
+                    }   
+                ////// ZU VIELE REG_GERAETE = FEHLER /////
+                if($this->cl_anzahl_yid >= 3)
+                    {
+                        $this->cl_fehler = 1;
+                        $fehler = 1;
+                        echo 'Sie haben bereits 3 MAC-Adressen registriert.<br>';
+                    }
+                    
+                    
+                    
                      
             }
             private function func_add_mac_w_Email(){
-                $this->cl_erg = $this->Name(). ';' . $this->mac_addr() . ';0;1;0;0;0;' . $this->cl_email . ';' . $this->cl_yid;
-                $this->cl_handle_w = fopen ( "list_w_email.txt", "a" );
-                fwrite ( $this->cl_handle_w, $this->cl_erg );
-                fwrite ( $this->cl_handle_w, "\n");
-                fclose ( $this->cl_handle_w);    
+                $erg = $this->Name(). ';' . $this->mac_addr() . ';0;1;0;0;0;' . $this->cl_email . ';' . $this->cl_yid;
+                $text_w_email = fopen ( "list_w_email.txt", "a" );
+                fwrite ( $text_w_email, $erg);
+                fwrite ( $text_w_email, "\n");
+                fclose ( $text_w_email);    
             }
             
             private function func_add_mac_addr(){
-                $this->cl_erg = $this->Name(). ';' . $this->mac_addr() . ';0;1;0;0;0';
-                $this->cl_handle_w = fopen ( "list.txt", "a" );
-                fwrite ( $this->cl_handle_w, $this->cl_erg );
-                fwrite ( $this->cl_handle_w, "\n");
-                fclose ( $this->cl_handle_w);                       
+                $erg1 = $this->Name(). ';' . $this->mac_addr() . ';0;1;0;0;0';
+                $text1 = fopen ( "list.txt", "a" );
+                fwrite ( $text1, $erg1 );
+                fwrite ( $text1, "\n");
+                fclose ( $text1);                       
             }
             
             
-            // NICHT FERTIG
+            // NICHT FERTIG HAUPTAUFRUF ///
             public function func_check_mac_addr(){
                 $this->check_Felder();
                 if ($this->cl_fehler === 1)
                 {
-                    echo 'Bitte neue Eingaben tätigen';
+                    echo '<br>Sie haben falsche Eingaben getÃ¤tigt.<br>';
                 }
                 else
                 {
-                
-                    $this->cl_handle_o = fopen ("list.txt", "r");
-                    $a = 0;
-                    
-                
-                    while(!feof($this->cl_handle_o))
-                    {
-                        //echo fgets($this->cl_handle_o). "//////2///////";
-                        //$comp = substr_count(fgets($this->cl_handle_o), $newdata->mac_addr());
-                        $strspn = strspn($this->mac_addr() , fgets($this->cl_handle_o));
-                        $ereg = ereg($this->mac_addr(), fgets($this->cl_handle_o));
-                        //echo $strspn;
-                        echo $ereg;
-                    
-                        if($strspn === $this->mac_addr())
-                        {
-                            echo 'korrekt' . "<br>";
-                            $a = $a + 1;
-                        }
-                        else ///// DEBUG_INFO
-                        {
-                            echo 'falsch' . "<br>";
-                            //break;
-                        }                   
-                    }
-                
-                    fclose($this->cl_handle_o);
-                
-                    if($a === 0){
-                        $this->func_add_mac_addr();
-                        $this->func_add_mac_w_Email();
-                    
-                    }
+                    $this->func_add_mac_addr();
+                    $this->func_add_mac_w_Email();
                 }
                 
             }
             
         }
+        
+        
         ////////// START PROG ////////////
+             
         $newdata = new input_PC;    
          
         $newdata -> cl_Vorname = $_POST["ein_vorname"];
@@ -167,12 +189,11 @@ and open the template in the editor.
         $newdata -> cl_mac_5 = $_POST["ein_mac_5"];
         $newdata -> cl_mac_6 = $_POST["ein_mac_6"];
         $newdata -> func_check_mac_addr();
-        //$newdata -> func_add_mac_addr();
         
-        //test_output
-        echo 'VAR4' . $newdata->cl_email . 'VAR4' . "<br>";
-        echo 'VAR3' . $newdata->cl_yid . 'VAR3' . "<br>";
-        echo 'VAR5 - ' . $newdata->cl_Vorname . ' - VAR5' . "<br>";
+        //////////////// test_output /////////////////////////
+        echo '<br><br>E-Mail: ' . $newdata->cl_email . "<br>";
+        echo 'Y-ID: ' . $newdata->cl_yid . "<br>";
+        echo 'Vorname: ' . $newdata->cl_Vorname . "<br>";
        
             
         //echo 'VAR2' . $newdata->cl_Vorname . 'VAR2' . "<br>";
@@ -194,10 +215,7 @@ and open the template in the editor.
         
         //echo $theData;
         ?>
-        
-        
-        
-        
+            
 
     </body>
 </html>
